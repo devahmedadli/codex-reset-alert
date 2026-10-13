@@ -1,0 +1,14 @@
+{
+  "ext_name": {
+    "message": "Codex Reset Alert",
+    "description": "Extension title"
+  },
+  "ext_desc": {
+    "message": "Get notified when a new public Codex usage reset is announced or observed.",
+    "description": "Extension description"
+  },
+  "action_title": {
+    "message": "Codex Reset Alert",
+    "description": "Toolbar button title"
+  }
+}

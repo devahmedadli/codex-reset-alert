@@ -1,0 +1,14 @@
+{
+  "name": "codex-reset-alert",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Browser extension that notifies users about public Codex reset announcements.",
+  "author": "Ahmed Adli (https://github.com/devahmedadli/)",
+  "homepage": "https://github.com/devahmedadli/",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "build": "bash build.sh",
+    "package": "bash build.sh"
+  },
+  "license": "MIT"
+}

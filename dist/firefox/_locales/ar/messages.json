@@ -1,0 +1,14 @@
+{
+  "ext_name": {
+    "message": "منبه إعادة تعيين Codex",
+    "description": "Extension title in Arabic"
+  },
+  "ext_desc": {
+    "message": "احصل على تنبيهات فورية عند الإعلان عن موعد أو رصد إعادة تعيين حدود استخدام كودكس (Codex).",
+    "description": "Extension description in Arabic"
+  },
+  "action_title": {
+    "message": "منبه إعادة تعيين Codex",
+    "description": "Toolbar button title in Arabic"
+  }
+}
