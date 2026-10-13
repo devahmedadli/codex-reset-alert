@@ -99,3 +99,8 @@ test('applies translations and direction to a mock DOM structure', () => {
   assert.equal(elements[1].attrs.title, 'تحديث الآن');
   assert.equal(elements[2].attrs['aria-label'], 'إغلاق الدليل');
 });
+
+test('language toggle aria labels and signal suffix are localized', () => {
+  assert.equal(CodexI18n.t('langSwitchAriaToEn', null, 'en'), 'Switch to English');
+  assert.equal(CodexI18n.t('notifSignalSuffix', { windowText: 'W', chance: 5 }, 'en'), 'W · 5% signal');
+});
