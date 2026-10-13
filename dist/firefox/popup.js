@@ -38,6 +38,13 @@ function openTab(url) {
   ext.tabs.create({ url });
 }
 
+const DONATE_URL = 'https://ahmedadli.com/extensions/donate?extension=codex-resets-alert';
+
+function cleanStatusMessage(text) {
+  if (!text || typeof text !== 'string') return '';
+  return text.replace(/\s*https?:\/\/t\.co\/\S+\s*$/g, '').trim() || text;
+}
+
 let currentSourceUrl = null;
 let currentStatus = null;
 let currentLastError = null;
@@ -59,17 +66,12 @@ function updateLanguageUI(lang) {
     if (lang === 'ar') {
       langText.textContent = 'EN';
       langBtn.title = CodexI18n.t('langToggleTitle', null, 'ar');
-      langBtn.setAttribute('aria-label', 'Switch to English');
+      langBtn.setAttribute('aria-label', CodexI18n.t('langSwitchAriaToEn', null, 'en'));
     } else {
       langText.textContent = 'عربي';
       langBtn.title = CodexI18n.t('langToggleTitle', null, 'en');
-      langBtn.setAttribute('aria-label', 'التبديل إلى العربية');
+      langBtn.setAttribute('aria-label', CodexI18n.t('langSwitchAriaToAr', null, 'ar'));
     }
-  }
-
-  const langSelect = $('languageSelect');
-  if (langSelect && currentSettings.language) {
-    langSelect.value = currentSettings.language;
   }
 }
 
@@ -94,18 +96,13 @@ function renderStatus(status, lastError) {
 
     const relativeTime = CodexReset.formatRelative(scheduled.scheduledFor, Date.now(), currentLang);
     if (relativeTime) {
-      if (currentLang === 'ar') {
-        const cleanRel = relativeTime.replace(/^(خلال|في غضون|بعد)\s+/i, '');
-        $('statusHeadline').textContent = `خلال ${cleanRel}`;
-      } else {
-        const cleanRel = relativeTime.replace(/^in\s+/i, '');
-        $('statusHeadline').textContent = `Within ${cleanRel}`;
-      }
+      const cleanRel = relativeTime.replace(currentLang === 'ar' ? /^(خلال|في غضون|بعد)\s+/i : /^in\s+/i, '');
+      $('statusHeadline').textContent = CodexI18n.t('headlineWithin', { time: cleanRel }, currentLang);
     } else {
       $('statusHeadline').textContent = CodexI18n.t('headlineResetScheduled', null, currentLang);
     }
 
-    $('statusText').textContent = scheduled.text || CodexI18n.t('textScheduledFallback', null, currentLang);
+    $('statusText').textContent = cleanStatusMessage(scheduled.text) || CodexI18n.t('textScheduledFallback', null, currentLang);
 
     if (scheduled.scheduledFor) {
       const dt = CodexReset.formatDateTime(scheduled.scheduledFor, currentLang);
@@ -123,7 +120,7 @@ function renderStatus(status, lastError) {
     setDot('watch');
     $('statusLabel').textContent = CodexI18n.t(watch.level === 'strong' ? 'labelStrongResetSignal' : 'labelResetWatch', null, currentLang);
     $('statusHeadline').textContent = watch.windowText || CodexI18n.t('headlineWatch', null, currentLang);
-    $('statusText').textContent = watch.text || CodexI18n.t('textWatchFallback', null, currentLang);
+    $('statusText').textContent = cleanStatusMessage(watch.text) || CodexI18n.t('textWatchFallback', null, currentLang);
 
     if (watch.expiresAt) {
       const rel = CodexReset.formatRelative(watch.expiresAt, Date.now(), currentLang);
@@ -145,7 +142,7 @@ function renderStatus(status, lastError) {
     $('statusLabel').textContent = CodexI18n.t(recent ? 'labelRecentReset' : 'labelNoActiveWatch', null, currentLang);
     $('statusHeadline').textContent = CodexI18n.t(recent ? 'headlineRecentReset' : 'headlineNoReset', null, currentLang);
     $('statusText').textContent = recent
-      ? (latest.text || CodexI18n.t('textRecentResetFallback', null, currentLang))
+      ? (cleanStatusMessage(latest.text) || CodexI18n.t('textRecentResetFallback', null, currentLang))
       : CodexI18n.t('textNoResetWatch', null, currentLang);
 
     if (latest.announcedAt) {
@@ -182,7 +179,7 @@ function renderStatus(status, lastError) {
 
   // Stats Card Population
   if (latest && latest.text) {
-    $('lastResetText').textContent = latest.text;
+    $('lastResetText').textContent = cleanStatusMessage(latest.text);
   } else {
     $('lastResetText').textContent = CodexI18n.t('statNoCachedReset', null, currentLang);
   }
@@ -234,9 +231,6 @@ async function load() {
   $('notifyReset').checked = settings.notifyReset !== false;
   $('soundEnabled').checked = settings.soundEnabled === true;
   $('intervalMinutes').value = String(Number(settings.intervalMinutes) || 15);
-  if ($('languageSelect')) {
-    $('languageSelect').value = settings.language || 'auto';
-  }
 
   const activeLang = getActiveLanguage(settings);
   updateLanguageUI(activeLang);
@@ -273,24 +267,25 @@ function highlightActiveBadge(status) {
 
 function openBadgeModal() {
   $('badgeModal')?.classList.remove('hidden');
+  document.body.classList.add('modal-open');
 }
 
 function closeBadgeModal() {
   $('badgeModal')?.classList.add('hidden');
+  document.body.classList.remove('modal-open');
 }
 
 async function saveSettings() {
   const enabled = $('notificationsEnabled').checked;
   updateSubsettingsState(enabled);
 
-  const selectedLang = $('languageSelect')?.value || currentSettings.language || 'auto';
   const settings = {
     notificationsEnabled: enabled,
     notifyWatch: $('notifyWatch').checked,
     notifyReset: $('notifyReset').checked,
     soundEnabled: $('soundEnabled').checked,
     intervalMinutes: Number($('intervalMinutes').value) || 15,
-    language: selectedLang,
+    language: currentSettings.language || 'auto',
   };
   currentSettings = settings;
 
@@ -305,9 +300,6 @@ async function saveSettings() {
 async function toggleLanguageQuick() {
   const nextLang = currentLang === 'ar' ? 'en' : 'ar';
   currentSettings.language = nextLang;
-  if ($('languageSelect')) {
-    $('languageSelect').value = nextLang;
-  }
   await saveSettings();
 }
 
@@ -342,7 +334,26 @@ async function refresh() {
   }
 }
 
-$('refreshButton').addEventListener('click', refresh);
+function showSettingsView() {
+  $('mainView')?.classList.add('hidden');
+  $('settingsView')?.classList.remove('hidden');
+}
+
+function showMainView() {
+  $('settingsView')?.classList.add('hidden');
+  $('mainView')?.classList.remove('hidden');
+}
+
+function toggleSettingsView() {
+  const isSettingsOpen = !$('settingsView')?.classList.contains('hidden');
+  if (isSettingsOpen) {
+    showMainView();
+  } else {
+    showSettingsView();
+  }
+}
+
+$('refreshButton')?.addEventListener('click', refresh);
 $('langToggleButton')?.addEventListener('click', toggleLanguageQuick);
 $('copyButton')?.addEventListener('click', copyShareText);
 $('badgeGuideButton')?.addEventListener('click', openBadgeModal);
@@ -351,13 +362,30 @@ $('dismissBadgeModal')?.addEventListener('click', closeBadgeModal);
 $('badgeModal')?.addEventListener('click', (e) => {
   if (e.target === $('badgeModal')) closeBadgeModal();
 });
+
+$('settingsButton')?.addEventListener('click', toggleSettingsView);
+$('backSettingsBtn')?.addEventListener('click', showMainView);
+$('doneSettingsBtn')?.addEventListener('click', showMainView);
+
+$('donateButton')?.addEventListener('click', () => openTab(DONATE_URL));
+$('footerDonateLink')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  openTab(DONATE_URL);
+});
+
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeBadgeModal();
+  if (e.key === 'Escape') {
+    if (!$('badgeModal')?.classList.contains('hidden')) {
+      closeBadgeModal();
+    } else if (!$('settingsView')?.classList.contains('hidden')) {
+      showMainView();
+    }
+  }
 });
 
 $('sourceButton').addEventListener('click', () => openTab(currentSourceUrl || CodexReset.SITE_URL));
 $('testButton').addEventListener('click', () => sendMessage({ type: 'TEST_NOTIFICATION' }));
-['notificationsEnabled', 'notifyWatch', 'notifyReset', 'soundEnabled', 'intervalMinutes', 'languageSelect'].forEach((id) => {
+['notificationsEnabled', 'notifyWatch', 'notifyReset', 'soundEnabled', 'intervalMinutes'].forEach((id) => {
   $(id)?.addEventListener('change', saveSettings);
 });
 

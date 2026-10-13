@@ -11,13 +11,7 @@
     <!-- Header -->
     <header class="topbar">
       <div class="brand">
-        <div class="brand-icon">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
-            <path d="M15 9.5a3.5 3.5 0 1 0 0 5h.5"></path>
-            <circle cx="12" cy="12" r="1.5" fill="#ffffff"></circle>
-          </svg>
-        </div>
+        <img src="icons/icon48.png" width="30" height="30" alt="Codex Reset Alert" class="brand-logo" />
         <div class="brand-text">
           <h1 data-i18n="extName">Codex Reset Alert</h1>
           <p class="brand-subtitle" data-i18n="brandSubtitle">Stay ahead of Codex engine resets.</p>
@@ -28,228 +22,230 @@
           <span id="langButtonText">عربي</span>
         </button>
         <button class="icon-button" id="badgeGuideButton" title="Icon Badge Meanings" aria-label="Icon Badge Meanings" data-i18n-title="badgeGuideButtonTitle" data-i18n-aria="badgeGuideButtonTitle">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="16" x2="12"></line>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
             <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+        </button>
+        <button class="icon-button" id="settingsButton" title="Notification Settings" aria-label="Notification Settings" data-i18n-title="settingsButtonTitle" data-i18n-aria="settingsButtonTitle">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+        </button>
+        <button class="icon-button btn-donate" id="donateButton" title="Donate" aria-label="Donate" data-i18n-title="donateButtonTitle" data-i18n-aria="donateButtonTitle">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
           </svg>
         </button>
         <button class="icon-button" id="refreshButton" title="Refresh now" aria-label="Refresh now" data-i18n-title="refreshButtonTitle" data-i18n-aria="refreshButtonTitle">
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+            <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+            <path d="M21 3v5h-5"></path>
           </svg>
         </button>
       </div>
     </header>
 
-    <!-- Hero Card: Active / Recent / Scheduled Reset -->
-    <section class="status-card" id="watchCard">
-      <div class="status-card-header">
-        <div class="status-pill">
-          <span class="dot" id="statusDot"></span>
-          <span class="eyebrow" id="statusLabel" data-i18n="labelRecentReset">RECENT RESET</span>
-        </div>
-        <span class="status-time" id="statusTime">Sep 22, 2026, 9:23 PM • 16 hours ago</span>
-      </div>
-      <h2 id="statusHeadline" data-i18n="headlineRecentReset">A reset was recently reported</h2>
-      <p id="statusText">GPT-6 Sol and Luna are out. Not only are they a very significant improvement across the board, but also in writing and general "you...</p>
-      <div class="card-footer">
-        <div class="hero-footer-left">
-          <svg class="meta-calendar-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-        </div>
-        <div class="hero-actions">
-          <button class="btn-copy" id="copyButton" title="Copy formatted alert summary" aria-label="Copy alert summary" data-i18n-title="btnCopyTitle">
-            <svg id="copyIcon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-            </svg>
-            <span id="copyButtonText" data-i18n="btnCopy">Copy</span>
-          </button>
-          <button class="btn-view-x" id="sourceButton">
-            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <line x1="10" y1="14" x2="21" y2="3"></line>
-            </svg>
-            <span id="sourceButtonText" data-i18n="btnViewOnX">View on X ↗</span>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Stats & Latest Reset Card -->
-    <section class="stats-card" id="statsCard">
-      <div class="stat-col stat-latest">
-        <div class="stat-latest-icon">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-            <rect x="4" y="10" width="3" height="10" rx="1"></rect>
-            <rect x="10.5" y="4" width="3" height="16" rx="1"></rect>
-            <rect x="17" y="12" width="3" height="8" rx="1"></rect>
-          </svg>
-        </div>
-        <div class="stat-latest-info">
-          <span class="stat-sublabel" data-i18n="statLatestResetLabel">LATEST RESET</span>
-          <span class="stat-latest-text" id="lastResetText">GPT-6 Sol and Luna are out.</span>
-        </div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-col stat-metric">
-        <span class="stat-value" id="statTotal">54</span>
-        <span class="stat-label" data-i18n="statRecordedResets">recorded resets</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-col stat-metric">
-        <span class="stat-value" id="statSinceLast">0.6d</span>
-        <span class="stat-label" data-i18n="statSinceLast">since last</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-col stat-metric">
-        <span class="stat-value" id="statAvgInterval">7.0d</span>
-        <span class="stat-label" data-i18n="statAvgInterval">avg interval</span>
-      </div>
-    </section>
-
-    <!-- Notifications & Settings Card -->
-    <section class="settings-card">
-      <div class="settings-header">
-        <div class="settings-header-left">
-          <div class="settings-bell-icon">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-            </svg>
+    <!-- Main View: Status Hero & Stats -->
+    <div id="mainView">
+      <!-- Hero Card: Active / Recent / Scheduled Reset -->
+      <section class="status-card" id="watchCard">
+        <div class="status-card-header">
+          <div class="status-pill">
+            <span class="dot" id="statusDot"></span>
+            <span class="eyebrow" id="statusLabel" data-i18n="labelRecentReset">RECENT RESET</span>
           </div>
-          <div class="settings-title-group">
-            <div class="settings-title" data-i18n="settingsTitle">Notifications</div>
-            <div class="settings-desc" data-i18n="settingsDesc">Get notified about scheduled and completed resets.</div>
-          </div>
+          <span class="status-time" id="statusTime"></span>
         </div>
-        <label class="toggle-switch">
-          <input type="checkbox" id="notificationsEnabled" />
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-
-      <!-- Nested Sub-settings list -->
-      <div class="subsettings-container" id="subsettingsGroup">
-        <!-- Watches & Schedules -->
-        <div class="subsetting-row">
-          <div class="subsetting-left">
-            <div class="subsetting-icon">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
+        <h2 id="statusHeadline" data-i18n="headlineRecentReset">A reset was recently reported</h2>
+        <p id="statusText"></p>
+        <div class="card-footer">
+          <div class="hero-source-tag">
+            <span class="source-bullet">●</span>
+            <span class="source-label" id="statusMetaSource">codex-resets.com</span>
+          </div>
+          <div class="hero-actions">
+            <button class="btn-copy" id="copyButton" title="Copy formatted alert summary" aria-label="Copy alert summary" data-i18n-title="btnCopyTitle">
+              <svg id="copyIcon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
               </svg>
-            </div>
-            <div class="subsetting-text">
-              <div class="subsetting-title" data-i18n="settingWatchTitle">Watches & Schedules</div>
-              <div class="subsetting-desc" data-i18n="settingWatchDesc">Notify when a reset is scheduled or expected.</div>
-            </div>
-          </div>
-          <label class="toggle-switch">
-            <input type="checkbox" id="notifyWatch" />
-            <span class="toggle-slider"></span>
-          </label>
-        </div>
-
-        <!-- Completed resets -->
-        <div class="subsetting-row">
-          <div class="subsetting-left">
-            <div class="subsetting-icon">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              <span id="copyButtonText" data-i18n="btnCopy">Copy</span>
+            </button>
+            <button class="btn-view-x" id="sourceButton">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
               </svg>
-            </div>
-            <div class="subsetting-text">
-              <div class="subsetting-title" data-i18n="settingResetTitle">Completed resets</div>
-              <div class="subsetting-desc" data-i18n="settingResetDesc">Notify when a reset is confirmed as completed.</div>
-            </div>
+              <span id="sourceButtonText" data-i18n="btnViewOnX">View on X ↗</span>
+            </button>
           </div>
-          <label class="toggle-switch">
-            <input type="checkbox" id="notifyReset" />
-            <span class="toggle-slider"></span>
-          </label>
         </div>
+      </section>
 
-        <!-- Audio chime alert -->
-        <div class="subsetting-row" id="soundRow">
-          <div class="subsetting-left">
-            <div class="subsetting-icon">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-              </svg>
-            </div>
-            <div class="subsetting-text">
-              <div class="subsetting-title" data-i18n="settingSoundTitle">Audio chime alert</div>
-              <div class="subsetting-desc" data-i18n="settingSoundDesc">Play a short sound when a notification is received.</div>
-            </div>
-          </div>
-          <label class="toggle-switch">
-            <input type="checkbox" id="soundEnabled" />
-            <span class="toggle-slider"></span>
-          </label>
-        </div>
-
-        <!-- Language Preference Row -->
-        <div class="subsetting-row" id="languageRow">
-          <div class="subsetting-left">
-            <div class="subsetting-icon">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Stats Card -->
+      <section class="stats-card" id="statsCard">
+        <!-- Latest Reset Note Row (Full Width, Multi-line Support) -->
+        <div class="stat-latest-banner" id="lastResetRow">
+          <div class="stat-latest-meta">
+            <div class="stat-latest-icon">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"></circle>
-                <line x1="2" y1="12" x2="22" y2="12"></line>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                <polyline points="12 6 12 12 16 14"></polyline>
               </svg>
             </div>
-            <div class="subsetting-text">
-              <div class="subsetting-title" data-i18n="settingLangTitle">Language</div>
-              <div class="subsetting-desc" data-i18n="settingLangDesc">Choose English or Arabic interface.</div>
-            </div>
+            <span class="stat-latest-title" data-i18n="statLatestResetLabel">LATEST RESET</span>
+            <span class="stat-latest-sep">·</span>
           </div>
-          <div class="select-box select-box-lang">
-            <select id="languageSelect" aria-label="Language">
-              <option value="auto" data-i18n="langAuto">Auto (System)</option>
-              <option value="en" data-i18n="langEn">English</option>
-              <option value="ar" data-i18n="langAr">العربية</option>
-            </select>
-            <svg class="chevron-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 9l6 6 6-6"/>
-            </svg>
+          <span class="stat-latest-text" id="lastResetText">Loading...</span>
+        </div>
+
+        <!-- 3-Column Metrics Grid -->
+        <div class="stats-metrics-grid">
+          <div class="stat-metric-card">
+            <span class="stat-value" id="statTotal">—</span>
+            <span class="stat-label" data-i18n="statRecordedResets">recorded resets</span>
+          </div>
+          <div class="stat-metric-divider"></div>
+          <div class="stat-metric-card">
+            <span class="stat-value" id="statSinceLast">—</span>
+            <span class="stat-label" data-i18n="statSinceLast">since last</span>
+          </div>
+          <div class="stat-metric-divider"></div>
+          <div class="stat-metric-card">
+            <span class="stat-value" id="statAvgInterval">—</span>
+            <span class="stat-label" data-i18n="statAvgInterval">avg interval</span>
           </div>
         </div>
+      </section>
+    </div>
+
+    <!-- Separated Settings View -->
+    <section class="settings-view hidden" id="settingsView">
+      <div class="settings-view-top">
+        <button class="settings-back-btn" id="backSettingsBtn" title="Back to tracker" aria-label="Back" data-i18n-title="btnBackToTracker" data-i18n-aria="btnBackToTracker">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          <span data-i18n="btnBack">Back</span>
+        </button>
+        <span class="settings-view-heading" data-i18n="settingsTitle">Notifications</span>
+        <button class="settings-done-btn" id="doneSettingsBtn" data-i18n="modalBtnDone">Done</button>
       </div>
 
-      <!-- Controls Row -->
-      <div class="controls-row">
-        <div class="select-wrapper">
-          <span class="select-label" data-i18n="checkEvery">Check every</span>
-          <div class="select-box">
-            <select id="intervalMinutes" aria-label="Check interval">
-              <option value="5" data-i18n="interval5m">5m</option>
-              <option value="15" data-i18n="interval15m">15m</option>
-              <option value="30" data-i18n="interval30m">30m</option>
-              <option value="60" data-i18n="interval1h">1h</option>
-            </select>
-            <svg class="chevron-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 9l6 6 6-6"/>
-            </svg>
+      <!-- Notifications & Settings Card -->
+      <div class="settings-card settings-card-full">
+        <div class="settings-header">
+          <div class="settings-header-left">
+            <div class="settings-bell-icon">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+            </div>
+            <div class="settings-title-group">
+              <div class="settings-title" data-i18n="settingsTitle">Notifications</div>
+              <div class="settings-desc" data-i18n="settingsDesc">Get notified about scheduled and completed resets.</div>
+            </div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="notificationsEnabled" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <!-- Nested Sub-settings list -->
+        <div class="subsettings-container" id="subsettingsGroup">
+          <!-- Watches & Schedules -->
+          <div class="subsetting-row">
+            <div class="subsetting-left">
+              <div class="subsetting-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </div>
+              <div class="subsetting-text">
+                <div class="subsetting-title" data-i18n="settingWatchTitle">Watches & Schedules</div>
+                <div class="subsetting-desc" data-i18n="settingWatchDesc">Notify when a reset is scheduled or expected.</div>
+              </div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="notifyWatch" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <!-- Completed resets -->
+          <div class="subsetting-row">
+            <div class="subsetting-left">
+              <div class="subsetting-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+              <div class="subsetting-text">
+                <div class="subsetting-title" data-i18n="settingResetTitle">Completed resets</div>
+                <div class="subsetting-desc" data-i18n="settingResetDesc">Notify when a reset is confirmed as completed.</div>
+              </div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="notifyReset" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <!-- Audio chime alert -->
+          <div class="subsetting-row" id="soundRow">
+            <div class="subsetting-left">
+              <div class="subsetting-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                </svg>
+              </div>
+              <div class="subsetting-text">
+                <div class="subsetting-title" data-i18n="settingSoundTitle">Audio chime alert</div>
+                <div class="subsetting-desc" data-i18n="settingSoundDesc">Play a short sound when a notification is received.</div>
+              </div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="soundEnabled" />
+              <span class="toggle-slider"></span>
+            </label>
           </div>
         </div>
-        <button class="test-btn" id="testButton">
-          <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
-          <span id="testButtonText" data-i18n="btnTestNotification">Test notification</span>
-        </button>
+
+        <!-- Controls Row -->
+        <div class="controls-row">
+          <div class="select-wrapper">
+            <span class="select-label" data-i18n="checkEvery">Check every</span>
+            <div class="select-box">
+              <select id="intervalMinutes" aria-label="Check interval">
+                <option value="5" data-i18n="interval5m">5m</option>
+                <option value="15" data-i18n="interval15m">15m</option>
+                <option value="30" data-i18n="interval30m">30m</option>
+                <option value="60" data-i18n="interval1h">1h</option>
+              </select>
+              <svg class="chevron-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
+          </div>
+          <button class="test-btn" id="testButton">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            <span id="testButtonText" data-i18n="btnTestNotification">Test notification</span>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -263,6 +259,8 @@
         <a href="https://github.com/devahmedadli/" target="_blank" rel="noreferrer" title="Developed by Ahmed Adli" id="authorLink" data-i18n="byAuthor">by Ahmed Adli</a>
         <span class="footer-sep">·</span>
         <a href="https://codex-resets.com/" target="_blank" rel="noreferrer">codex-resets.com ↗</a>
+        <span class="footer-sep">·</span>
+        <a href="https://ahmedadli.com/extensions/donate?extension=codex-resets-alert" target="_blank" rel="noreferrer" id="footerDonateLink" data-i18n="footerDonate">Donate</a>
       </div>
     </footer>
 
@@ -274,7 +272,7 @@
             <div class="modal-icon-badge">
               <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="16" x2="12"></line>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
                 <line x1="12" y1="8" x2="12.01" y2="8"></line>
               </svg>
             </div>

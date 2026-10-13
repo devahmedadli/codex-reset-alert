@@ -109,13 +109,10 @@ function watchTitle(watch, lang) {
 }
 
 function watchMessage(watch, lang) {
-  let chanceStr = '';
-  if (typeof watch.chancePercent === 'number') {
-    chanceStr = lang === 'ar'
-      ? ` · إشارة ${watch.chancePercent}%`
-      : ` · ${watch.chancePercent}% signal`;
-  }
-  return CodexReset.truncate(`${watch.windowText}${chanceStr}${watch.text ? ` — ${watch.text}` : ''}`, 220);
+  const head = typeof watch.chancePercent === 'number'
+    ? CodexI18n.t('notifSignalSuffix', { windowText: watch.windowText, chance: watch.chancePercent }, lang)
+    : watch.windowText;
+  return CodexReset.truncate(`${head}${watch.text ? ` — ${watch.text}` : ''}`, 220);
 }
 
 function resetTitle(reset, lang) {
@@ -152,6 +149,17 @@ async function playNotificationSound() {
   }
 }
 
+async function safeNotify(id, options, sourceUrl) {
+  try {
+    await createNotification(id, options);
+    await rememberNotificationLink(id, sourceUrl);
+    return true;
+  } catch (error) {
+    console.warn('Failed to show notification', id, error);
+    return false;
+  }
+}
+
 async function notifyForStatus(status, previous, settings, initializing) {
   const scheduled = CodexReset.isScheduledResetActive(status.scheduledReset) ? status.scheduledReset : null;
   const watch = CodexReset.isWatchActive(status.activeWatch) ? status.activeWatch : null;
@@ -172,7 +180,7 @@ async function notifyForStatus(status, previous, settings, initializing) {
       const id = `codex-${scheduledId}`;
       const sourceUrl = scheduled.source?.url || CodexReset.SITE_URL;
       const isX = sourceUrl.includes('x.com');
-      await createNotification(id, {
+      if (await safeNotify(id, {
         type: 'basic',
         iconUrl: notificationIcon(),
         title: scheduledTitle(scheduled, lang),
@@ -182,16 +190,14 @@ async function notifyForStatus(status, previous, settings, initializing) {
           { title: CodexI18n.t('btnOpenTracker', null, lang) },
         ],
         priority: 1,
-      });
-      await rememberNotificationLink(id, sourceUrl);
-      notified = true;
+      }, sourceUrl)) notified = true;
     }
 
     if (settings.notifyWatch && watchId && watchId !== previousWatchId) {
       const id = `codex-${watchId}`;
       const sourceUrl = watch.source?.url || CodexReset.SITE_URL;
       const isX = sourceUrl.includes('x.com');
-      await createNotification(id, {
+      if (await safeNotify(id, {
         type: 'basic',
         iconUrl: notificationIcon(),
         title: watchTitle(watch, lang),
@@ -201,9 +207,7 @@ async function notifyForStatus(status, previous, settings, initializing) {
           { title: CodexI18n.t('btnOpenTracker', null, lang) },
         ],
         priority: 1,
-      });
-      await rememberNotificationLink(id, sourceUrl);
-      notified = true;
+      }, sourceUrl)) notified = true;
     }
 
     if (settings.notifyReset && resetId && resetId !== previousResetId) {
@@ -212,7 +216,7 @@ async function notifyForStatus(status, previous, settings, initializing) {
       const sourceUrl = reset.source?.url || CodexReset.SITE_URL;
       const isX = sourceUrl.includes('x.com');
       const fallbackText = CodexI18n.t('textRecentResetFallback', null, lang);
-      await createNotification(id, {
+      if (await safeNotify(id, {
         type: 'basic',
         iconUrl: notificationIcon(),
         title: resetTitle(reset, lang),
@@ -222,13 +226,11 @@ async function notifyForStatus(status, previous, settings, initializing) {
           { title: CodexI18n.t('btnOpenTracker', null, lang) },
         ],
         priority: 1,
-      });
-      await rememberNotificationLink(id, sourceUrl);
-      notified = true;
+      }, sourceUrl)) notified = true;
     }
 
     if (notified && settings.soundEnabled) {
-      await playNotificationSound();
+      await playNotificationSound().catch(() => {});
     }
   }
 
