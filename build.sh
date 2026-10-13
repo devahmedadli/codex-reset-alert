@@ -82,7 +82,7 @@ node -e "
   const manifest = JSON.parse(fs.readFileSync('${ROOT_DIR}/manifest.json', 'utf8'));
   manifest.browser_specific_settings = manifest.browser_specific_settings || {
     gecko: {
-      id: 'codex-reset-alert@local',
+      id: 'codex-reset-alert@ahmedadli.com',
       strict_min_version: '121.0'
     }
   };
